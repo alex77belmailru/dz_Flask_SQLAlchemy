@@ -9,6 +9,17 @@
         <a href="{{ url_for ('books_by_genre', genre_id=book.genre_id) }}"> Жанр: {{ book.genre.name }} </a>
     </li>
     <li> Дата создания: {{book.added }}</li>
+
+    <form method="POST">
+        Прочитано:
+        {% if book.is_read %}
+        <input type="checkbox" name='read' value={{ book.id }} checked="checked">
+        {% else %}
+        <input type="checkbox" name='read' value={{ book.id }}>
+        {% endif %}
+        <input type="submit" value="Сохранить" />
+    </form>
+
 </ul>
 <hr>
 {% endfor %}

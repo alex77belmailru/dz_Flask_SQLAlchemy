@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 from models import db, Book, Genre
 
@@ -56,8 +56,14 @@ with app.app_context():
     db.session.commit()
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def book_list():
+    if request.method == 'POST':
+        book_id = request.form.get('read')
+        if book_id:
+            book = Book.query.get_or_404(book_id)
+            book.is_read = False if book.is_read else True
+            db.session.commit()
     books = Book.query.order_by(Book.added.desc()).limit(BOOKS_TO_SHOW)
     return render_template('book_list.html', books=books)
 
