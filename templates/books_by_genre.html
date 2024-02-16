@@ -1,0 +1,14 @@
+{% extends 'layout.html'%}
+{% block body %}
+<h1>Мои книги жанра '{{ genre_name }}'</h1>
+{% for book in books %}
+<ul>
+    <li> Название: {{ book.name }}</li>
+    <li> Автор: {{ book.author }}</li>
+    <li> Жанр: {{ book.genre.name }}</li>
+    <li> Дата создания: {{book.added }}</li>
+</ul>
+<hr>
+{% endfor %}
+
+{% endblock %}
