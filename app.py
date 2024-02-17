@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 
 from models import db, Book, Genre
 
@@ -56,16 +56,20 @@ with app.app_context():
     db.session.commit()
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/')
 def book_list():
-    if request.method == 'POST':
-        book_id = request.form.get('read')
-        if book_id:
-            book = Book.query.get_or_404(book_id)
-            book.is_read = False if book.is_read else True
-            db.session.commit()
     books = Book.query.order_by(Book.added.desc()).limit(BOOKS_TO_SHOW)
     return render_template('book_list.html', books=books)
+
+
+@app.route('/update_status/<int:book_id>', methods=['POST'])
+def update_status(book_id):
+    is_read = request.form.get('is_read')
+    is_read = True if is_read == '1' else False
+    book = Book.query.get_or_404(book_id)
+    book.is_read = is_read
+    db.session.commit()
+    return redirect('/')
 
 
 @app.route('/genre/<int:genre_id>/')

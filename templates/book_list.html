@@ -10,15 +10,16 @@
     </li>
     <li> Дата создания: {{book.added }}</li>
 
-    <form method="POST">
-        Прочитано:
+    <form action="/update_status/{{ book.id }}" method="post">
+        <label for="is_read">Прочитана</label>
         {% if book.is_read %}
-        <input type="checkbox" name='read' value={{ book.id }} checked="checked">
+        <input type="checkbox" name="is_read" value=1 {{ book.is_read }} checked="checked">
         {% else %}
-        <input type="checkbox" name='read' value={{ book.id }}>
+        <input type="checkbox" name="is_read" value=1 {{ book.is_read }}>
         {% endif %}
-        <input type="submit" value="Сохранить" />
+        <button type="submit">Сохранить</button>
     </form>
+
 
 </ul>
 <hr>
