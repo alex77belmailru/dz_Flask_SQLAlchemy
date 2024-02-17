@@ -13,9 +13,9 @@
     <form action="/update_status/{{ book.id }}" method="post">
         <label for="is_read">Прочитана</label>
         {% if book.is_read %}
-        <input type="checkbox" name="is_read" value=1 {{ book.is_read }} checked="checked">
+        <input type="checkbox" name="is_read" value='check_read' checked="checked">
         {% else %}
-        <input type="checkbox" name="is_read" value=1 {{ book.is_read }}>
+        <input type="checkbox" name="is_read" value='check_read'>
         {% endif %}
         <button type="submit">Сохранить</button>
     </form>

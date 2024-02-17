@@ -64,10 +64,9 @@ def book_list():
 
 @app.route('/update_status/<int:book_id>', methods=['POST'])
 def update_status(book_id):
-    is_read = request.form.get('is_read')
-    is_read = True if is_read == '1' else False
+    get_checked_status = request.form.get('is_read')
     book = Book.query.get_or_404(book_id)
-    book.is_read = is_read
+    book.is_read = True if get_checked_status == 'check_read' else False
     db.session.commit()
     return redirect('/')
 
